@@ -12,7 +12,7 @@ describe('Blitzpay ui spec', () => {
       cy.wait(1000);
 
       cy.get('#name').type('Natan G Silva');
-      cy.get('#email').type('natan.test89@blitz.com');
+      cy.get('#email').type('natan.test8910@blitz.com');
       cy.get('#password').type('123456');
       cy.get(':nth-child(3) > .form-wrapper > .show-password-icon > .clear-button > .icon-eye').click();
       cy.get('#confirm_password').type('123456');
@@ -26,11 +26,11 @@ describe('Blitzpay ui spec', () => {
       it('Navigator', () => {
         cy.wait(1000);
         cy.visit('https://app.blitzpay.com.br/login?path=%2F');
-        cy.get('#email').type('natan.test89@blitz.com');
+        cy.get('#email').type('natan.test8910@blitz.com');
         cy.get('#password').type('123456');
         cy.get('.icon-eye').click();
-        cy.get('[style=""] > .auth-button-component > .btn').click();
-        cy.visit('https://app.blitzpay.com.br/login?path=%2Fpesquisa');
+        cy.get('[style=""] > .auth-button-component > .btn').click()
+        cy.visit('https://app.blitzpay.com.br/pesquisa')
       });
     });
   });
