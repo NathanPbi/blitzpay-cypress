@@ -1,0 +1,11 @@
+//Guide
+
+// git clone https://github.com/NathanPbi/blitzpay-cypress.git
+// cd blitzpay-cypress 
+// yarn install
+// ou
+// npm install
+// Open
+// yarn cypress open
+// Ou
+// npx cypress open
