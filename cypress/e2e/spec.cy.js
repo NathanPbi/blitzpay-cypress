@@ -30,7 +30,7 @@ describe('Blitzpay ui spec', () => {
         cy.get('#password').type('123456');
         cy.get('.icon-eye').click();
         cy.get('[style=""] > .auth-button-component > .btn').click()
-        cy.visit('https://app.blitzpay.com.br/pesquisa')
+
       });
     });
   });
