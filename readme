@@ -5,7 +5,8 @@
 // yarn install
 // ou
 // npm install
-// Open
+// Para rodar o projeto
+
 // yarn cypress open
 // Ou
 // npx cypress open
