@@ -9,8 +9,6 @@ describe('Blitzpay ui spec', () => {
     it('Fill in registration fields', () => {
 
       cy.visit('https://app.blitzpay.com.br/cadastro');
-      cy.wait(1000);
-
       cy.get('#name').type('Natan G Silva');
       cy.get('#email').type('natan.test8910@blitz.com');
       cy.get('#password').type('123456');
