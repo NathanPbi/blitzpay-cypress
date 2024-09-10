@@ -2,7 +2,7 @@
   "name": "blitzpay",
   "version": "1.0.0",
   "devDependencies": {
-    "cypress": "^13.14.0"
+    "cypress": "^13.14.2"
   },
   "scripts": {
     "cypress:open": "cypress open"
