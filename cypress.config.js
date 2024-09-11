@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "https://blitzpay.com.br/",
+    baseUrl: 'https://staging.blitzpay.com.br/login/',
     chromeWebSecurity: false,
   },
 });
