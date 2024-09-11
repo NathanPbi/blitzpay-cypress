@@ -47,11 +47,11 @@ describe('Blitzpay UI Tests', () => {
     cy.get('#password').should('be.visible').type(password);
     cy.get('.icon-eye').click();
     cy.get('.btn').click({ force: true });
+    cy.visit('https://staging.blitzpay.com.br/pesquisa', { failOnStatusCode: false });
+
 
     cy.wait('@mockedLogin').then(() => {
       cy.setCookie('auth_token', fakeToken);
-
-      cy.visit('https://staging.blitzpay.com.br/pesquisa', { failOnStatusCode: false });
 
       cy.contains('Pesquisa').should('be.visible');
     });
