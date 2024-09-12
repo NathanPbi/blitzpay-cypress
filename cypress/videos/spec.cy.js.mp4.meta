@@ -1,0 +1,11 @@
+;FFMETADATA1
+[CHAPTER]
+TIMEBASE=1/1000
+START=-31872
+END=7123
+title=Blitzpay UI Tests should load the homepage
+[CHAPTER]
+TIMEBASE=1/1000
+START=11115
+END=46755
+title=Blitzpay UI Tests should login with the registered user

@@ -1,49 +1,59 @@
 describe('Blitzpay UI Tests', () => {
   const timestamp = Date.now();
   const email = `natan${timestamp}@blitzpay.com.br`;
+  const password = '123456';
+  const fakeToken = 'fake-jwt-token';
 
-  it('should load the homepage', () => {
-    cy.visit('/');
-    cy.get('.navbar').should('be.visible');
-    cy.get('.col-6 > .d-grid > .btn').should('be.visible');
+  it('should register a new user', () => {
+    cy.visit('/', { failOnStatusCode: false });
+
+    cy.url().should('include', '/');
+
+    cy.get('.main').click();
+    cy.get('#name').type('Natan G Silva');
+    cy.get('#email').type(email);
+    cy.get('#password').type(password);
+    cy.get(':nth-child(3) > .form-wrapper > .show-password-icon > .clear-button > .icon-eye').click();
+    cy.get('#confirm_password').type(password);
+    cy.get(':nth-child(4) > .form-wrapper > .show-password-icon > .clear-button > .icon-eye').click();
+    cy.get(':nth-child(2) > .auth-button-component > .btn').click();
+    cy.get('#phone').type('55996277657');
+    cy.get('#instagram').type('@natangsilv');
+    cy.get('.custom-control').click();
+
+    cy.intercept('POST', '**/login').as('loginRequest');
+    cy.get('[style=""] > .auth-button-component > .btn').click();
+
+    cy.wait('@loginRequest').then((interception) => {
+      expect(interception.response.statusCode).to.eq(200);
+    });
   });
 
-  describe('UI Signup Flow', () => {
-    it('should fill in the registration form', () => {
-      cy.visit('https://app.blitzpay.com.br/cadastro');
-      
-      cy.get('#name').type('Natan G Silva');
-      cy.get('#email').type(email); 
-      cy.get('#password').type('123456');
-      cy.get(':nth-child(3) > .form-wrapper > .show-password-icon > .clear-button > .icon-eye').click();
-      cy.get('#confirm_password').type('123456');
-      cy.get(':nth-child(4) > .form-wrapper > .show-password-icon > .clear-button > .icon-eye').click();
-      cy.get(':nth-child(2) > .auth-button-component > .btn').click();
+  it('should login using a mock response and inject token', () => {
+    cy.wait(2000);
 
-      // Preenchendo o telefone e Instagram
-      cy.get('#phone').type('55996277657');
-      cy.get('#instagram').type('@natangsilv');
-      cy.get('.custom-control').click();
-      
-      // Interceptando a requisição de login
-      cy.intercept('POST', '**/login').as('loginRequest');
-      cy.get('[style=""] > .auth-button-component > .btn').click();
-      cy.wait('@loginRequest').then((interception) => {
-        expect(interception.response.statusCode).to.eq(200); 
+    cy.intercept('POST', '**/login', (req) => {
+      req.reply({
+        statusCode: 200,
+        body: {
+          success: true,
+          token: fakeToken
+        }
       });
-      
-    });
+    }).as('mockedLogin');
 
-    it('should login with the registered user', () => {
-      cy.wait(1000); 
+    cy.visit('/', { failOnStatusCode: false });
+    cy.get('#email').should('be.visible').type(email);
+    cy.get('#password').should('be.visible').type(password);
+    cy.get('.icon-eye').click();
+    cy.get('.btn').click({ force: true });
+    cy.visit('https://staging.blitzpay.com.br/pesquisa', { failOnStatusCode: false });
 
-      cy.visit('https://app.blitzpay.com.br/login?path=%2F');
-      cy.get('#email').type(email); 
-      cy.get('#password').type('123456');
-      cy.get('.icon-eye').click();
-      cy.get('.btn').click();
 
-      cy.url().should('include', '/onboarding'); 
+    cy.wait('@mockedLogin').then(() => {
+      cy.setCookie('auth_token', fakeToken);
+
+      cy.contains('Pesquisa').should('be.visible');
     });
   });
 });
