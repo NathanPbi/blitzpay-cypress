@@ -1,3 +1,5 @@
+//Firts test blitzpay
+
 describe('Blitzpay UI Tests', () => {
   const timestamp = Date.now();
   const email = `natan${timestamp}@blitzpay.com.br`;
