@@ -25,8 +25,6 @@ describe('Blitzpay UI Tests', () => {
     cy.get('#password').should('be.visible').clear().type(password);
     cy.get('.icon-eye').click();
     cy.get('.btn').click({ delay: 200 });
-    
-    // Aguarde até que o elemento "Pesquisa" esteja visível
     cy.contains('Pesquisa').should('be.visible');
   });
 });
