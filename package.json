@@ -5,8 +5,7 @@
     "cypress": "^13.14.2"
   },
   "scripts": {
-    "cypress:open": "cypress open"
-  },
-  "baseUrl": "https://blitzpay.com.br/",
-  "chromeWebSecurity": false
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  }
 }
